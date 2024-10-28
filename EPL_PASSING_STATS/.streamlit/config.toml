@@ -1,0 +1,16 @@
+[theme]
+
+#Primary color
+primaryColor = "#d33682"
+
+# Background color for main area
+backgroundColor = "#002b36"
+
+#Background for sidebar 
+secondaryBackgroundColor = "#586e75"
+
+#color for text
+textColor = "#fff"
+
+[client]
+toolbarMode = "minimal"
