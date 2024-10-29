@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 #Page Config
-#st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 
 
 #st.title(" English Premier League Passing Stats")
