@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 #Page Config
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 
 #st.title(" English Premier League Passing Stats")
@@ -109,7 +109,7 @@ def plot_progressive_passes(df):
     fig = plt.figure(dpi=150)  # Increase DPI for a larger image display
     ax = fig.add_subplot(111)
 
-    sorted_df.set_index('Squad')[['PrgP']].plot(kind='bar', color=['#ff0000'], ax=ax)
+    sorted_df.set_index('Squad')[['PrgP']].plot(kind='bar', color=['#2ca02c'], ax=ax)
 
     ax.set_title('Progressive Passes by Team')
     ax.set_ylabel('Progressive Passes')
