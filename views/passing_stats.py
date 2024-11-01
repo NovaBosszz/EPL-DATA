@@ -9,13 +9,14 @@ import plotly.express as px
 #st.set_page_config(layout="wide")
 
 
-#st.title(" English Premier League Passing Stats")
+st.title("Football Passing Stats")
 
 # Define URLs for different leagues
 urls = {
+    
+    "Belgian Pro League": "https://fbref.com/en/comps/37/passing/Belgian-Pro-League-Stats#all_stats_passing",
     "Premier League": "https://fbref.com/en/comps/9/passing/Premier-League-Stats#all_stats_passing",
     "La Liga": "https://fbref.com/en/comps/12/passing/La-Liga-Stats#all_stats_passing",
-    "Belgian Pro League": "https://fbref.com/en/comps/37/passing/Belgian-Pro-League-Stats#all_stats_passing"
 }
 
 # Dropdown menu for selecting league
