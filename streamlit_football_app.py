@@ -1,39 +1,35 @@
 import streamlit as st
-import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import re
-import requests
 import plotly.express as px
 from adjustText import adjust_text
 
+# Sidebar Setup
+st.sidebar.title("Explore Analysis")
+st.sidebar.write("Select a project to explore.")
+
+# --- Navigation ---
+# Create a dictionary mapping project names to file paths for easier management
+pages = {
+    "League Passing Profiles": "views/passing_stats.py",
+    "League Shooting Profiles": "views/shooting_stats.py",
+    "Club Profiles": "views/player_profiles.py"
+}
+
+# Sidebar selection for pages
+selected_page = st.sidebar.selectbox("Choose a Project", list(pages.keys()))
 
 
 
-#----Page Setup---
-project_1_page = st.Page(
-    page="views/passing_stats.py",
-    title="Club Passing Profiles",
-    icon=":material/bar_chart:",
-    
-)
-project_2_page = st.Page(
-    page="views/shooting_stats.py",
-    title ="Club Shooting Profiles",
-    icon=":material/bar_chart:",
-)
-
-# --- Navigation -----
-pg = st.navigation(
-    {
-        
-         "Projects": [project_1_page, project_2_page]
-    }
-         )
-
-st.sidebar.text("Made by ")
+# --- Run Selected Page ---
+# Dynamically load and execute the selected page
+if selected_page in pages:
+    with open(pages[selected_page]) as f:
+        code = f.read()
+        exec(code)
 
 
-# Run Navigation
-pg.run()
+
+# Display footer
+st.sidebar.text("Made by November")
