@@ -153,8 +153,8 @@ def plot_missed_passes(df):
         ax.annotate(f'{int(p.get_height())}', 
                     (p.get_x() + p.get_width() / 2., p.get_height()), 
                     ha='center', va='center', 
-                    xytext=(0, 6), 
-                    textcoords='offset points', fontsize=8)
+                    xytext=(0, 5), 
+                    textcoords='offset points', fontsize=6)
         
     st.pyplot(fig)
 

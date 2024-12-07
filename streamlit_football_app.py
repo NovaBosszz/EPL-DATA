@@ -14,6 +14,7 @@ st.sidebar.write("Select a project to explore.")
 pages = {
     "League Passing Profiles": "views/passing_stats.py",
     "League Shooting Profiles": "views/shooting_stats.py",
+    "Goals":"views/goals.py",
     "Club Profiles": "views/player_profiles.py"
 }
 

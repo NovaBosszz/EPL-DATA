@@ -45,21 +45,78 @@ df.rename(columns = {
 st.dataframe(df)
 st.markdown("---")
 
-def plot_team_goals(df):
-    st.header('League Goals Scored By Teams')
+def plot_team_shots(df):
+    st.header('Shots Vs Shots On Target')
 
-    # Group by 'Squad' and 'passes_Cmp' and 'passes_Att'
+    # Group by 'Squad' and 'Shots' and 'Shots On Target'
 
-    league_goals = df[['Squad','Gls']].sort_values( by='Gls', ascending=False)
+    league_shots = df[['Squad','SoT', 'Sh']].sort_values( by='Sh', ascending=False)
                                         
     fig = plt.figure(dpi=150)  # Increase DPI for a larger image display
     ax = fig.add_subplot(111)
 
     #plot the data
-    league_goals.plot(kind="bar", x='Squad', y=['Gls'], ax =ax , color=['#1f77b4'])
+    league_shots.plot(kind="bar", x='Squad', y=['Sh', 'SoT',], ax =ax , color=['#1f77b4', '#ff7f0e'])
 
-    ax.set_title('League Goals Scored By Teams')
+    ax.set_title('Shots Vs Shots On Target')
     ax.set_ylabel('Number of Goals')
+    ax.set_xlabel('Squad')
+    ax.set_xticklabels(league_shots['Squad'], rotation=45, ha='right', fontsize=9)
+
+    fig.tight_layout()
+
+    st.pyplot(fig)
+
+def plot_team_acc(df):
+    st.header('Shots On Target Vs Goals')
+
+    league_shots = df[['Squad','Gls', 'SoT']].sort_values(by='SoT',ascending=False)
+
+    fig = plt.figure(dpi=150)  # Increase DPI for a larger image display
+    ax = fig.add_subplot(111)
+
+    #plot the data
+    league_shots.plot(kind="bar", x='Squad', y=['SoT', 'Gls'], ax =ax , color=['#1f77b4', '#ff7f0e'])
+
+    ax.set_title('Shots On Target Vs Goals')
+    ax.set_ylabel('Number of Goals')
+    ax.set_xlabel('Squad')
+    ax.set_xticklabels(league_shots['Squad'], rotation=45, ha='right', fontsize=9)
+
+    fig.tight_layout()
+
+    st.pyplot(fig)
+
+def plot_shots_per_90_vs_sot_per_90(df):
+    st.header('Shots/90 vs Shots On Target/90 by Team')
+    league_data = df[['Squad', 'Sh/90', 'SoT/90']].sort_values('Sh/90', ascending=False)
+
+    fig = plt.figure(dpi=150)
+    ax = fig.add_subplot(111)
+    league_data.plot(kind='bar', x='Squad', y=['Sh/90', 'SoT/90'], ax=ax, color=['#1f77b4', '#ff7f0e'])
+
+    ax.set_title('Shots/90 vs Shots On Target/90')
+    ax.set_xlabel('Team')
+    ax.set_ylabel('Shots per 90')
+    ax.set_xticklabels(league_data['Squad'], rotation=45, ha='right')
+
+    st.pyplot(fig)
+
+def plot_team_sot(df):
+    st.header('Shots On Target Percentage (SoT%)')
+
+    # Group by 'Squad' and 'passes_Cmp' and 'passes_Att'
+
+    league_goals = df[['Squad','SoT%']].sort_values( by='SoT%', ascending=False)
+                                        
+    fig = plt.figure(dpi=150)  # Increase DPI for a larger image display
+    ax = fig.add_subplot(111)
+
+    #plot the data
+    league_goals.plot(kind="bar", x='Squad', y=['SoT%'], ax =ax , color=['#1f77b4'])
+
+    ax.set_title('Direct measure of accuracy')
+    ax.set_ylabel('SoT%')
     ax.set_xlabel('Squad')
     ax.set_xticklabels(league_goals['Squad'], rotation=45, ha='right', fontsize=9)
 
@@ -74,69 +131,19 @@ def plot_team_goals(df):
 
     st.pyplot(fig)
 
-def plot_team_goals_scatter(df):
-    # Check if the required columns are present
-    if not {'xG', 'Gls', 'Squad'}.issubset(df.columns):
-        st.error("Dataframe missing one of the required columns: 'xG', 'Gls', or 'Squad'")
-        return
-    
-    # Create the scatter plot
-    fig, ax = plt.subplots(figsize=(12, 8))
-    scatter = ax.scatter(df['xG'], df['Gls'], alpha=0.6, s=100)
 
-    # Add labels and title
-    ax.set_xlabel('Expected Goals (xG)', fontsize=12)
-    ax.set_ylabel('Actual Goals (Gls)', fontsize=12)
-    ax.set_title('Actual Goals vs Expected Goals', fontsize=14)
-
-    # Add a diagonal line for reference (xG = Gls)
-    lims = [
-        np.min([ax.get_xlim(), ax.get_ylim()]),  # min of both axes
-        np.max([ax.get_xlim(), ax.get_ylim()]),  # max of both axes
-    ]
-    ax.plot(lims, lims, 'r--', alpha=0.75, zorder=0)
-
-    # Add team labels to points
-    texts = [
-        ax.text(df['xG'].iloc[i], df['Gls'].iloc[i], txt, fontsize=18, alpha=0.7)
-        for i, txt in enumerate(df['Squad'])
-    ]
-
-    # Adjust text to minimize overlap
-    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='gray', lw=0.5))
-
-    # Adjust layout to prevent clipping of tick-labels and display in Streamlit
-    fig.tight_layout()
-    st.pyplot(fig)
-    
-def plot_team_shots(df):
-    st.header('Shots Vs Shots On Target By Teams')
-
-    # Group by 'Squad' and 'Shots' and 'Shots On Target'
-
-    league_shots = df[['Squad','SoT', 'Sh']].sort_values( by='Sh', ascending=False)
-                                        
-    fig = plt.figure(dpi=150)  # Increase DPI for a larger image display
-    ax = fig.add_subplot(111)
-
-    #plot the data
-    league_shots.plot(kind="bar", x='Squad', y=['SoT', 'Sh'], ax =ax , color=['#1f77b4', '#ff7f0e'])
-
-    ax.set_title('League Goals Scored By Teams')
-    ax.set_ylabel('Number of Goals')
-    ax.set_xlabel('Squad')
-    ax.set_xticklabels(league_shots['Squad'], rotation=45, ha='right', fontsize=9)
-
-    fig.tight_layout()
-
-    st.pyplot(fig)
 
 # Calling functions to generate each plot
 
 if df is not None:
-    plot_team_goals(df)     
-    st.markdown("---")
-    plot_team_goals_scatter(df)
-    st.markdown("---")
+ 
     plot_team_shots(df)
     st.markdown("---")
+    plot_team_acc(df)
+    st.markdown("---")
+    plot_shots_per_90_vs_sot_per_90(df)
+    st.markdown("---")
+    plot_team_sot(df)
+    st.markdown("---")
+   
+
