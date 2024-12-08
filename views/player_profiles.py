@@ -6,7 +6,8 @@ import seaborn as sns
 # Define URLs for each team
 english_urls = {
     "Manchester United": "https://fbref.com/en/squads/19538871/Manchester-United-Stats",
-    "Liverpool": "https://fbref.com/en/squads/822bd0ba/Liverpool-Stats"
+    "Liverpool": "https://fbref.com/en/squads/822bd0ba/Liverpool-Stats",
+    "Arsenal":"https://fbref.com/en/squads/18bb7c10/Arsenal-Stats"
 }
 belgian_urls = {
     "Genk": "https://fbref.com/en/squads/1e972a99/Genk-Stats"
