@@ -28,6 +28,7 @@ selected_page = st.sidebar.selectbox("Choose a Project", list(pages.keys()))
 if selected_page in pages:
     with open(pages[selected_page]) as f:
         code = f.read()
+        print("Debug - Executing:\n", code)
         exec(code)
 
 
