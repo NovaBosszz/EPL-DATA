@@ -6,3 +6,4 @@ requests
 plotly
 lxml
 seaborn
+adjustText      
